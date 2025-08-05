@@ -91,30 +91,48 @@ const Header = () => {
           </motion.div>
           
           <nav className="hidden md:flex items-center space-x-8">
-            {['Home', 'Features', 'About', 'Contact'].map((item, index) => (
-              <motion.a 
-                key={item}
-                href={`#${item.toLowerCase()}`} 
-                className="text-gray-300 hover:text-white transition-colors px-3 py-2 rounded-md"
-                whileHover={{ scale: 1.05, y: -2 }}
-                whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                {item}
-              </motion.a>
-            ))}
+            {["Home", "Features", "About", "Contact"].map((item, index) => {
+              if (item === "About" || item === "Contact") {
+                return (
+                  <motion.a
+                    key={item}
+                    href="mailto:founders@mysevak.io"
+                    className="text-gray-300 hover:text-white transition-colors px-3 py-2 rounded-md"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    {item}
+                  </motion.a>
+                )
+              }
+              return (
+                <motion.a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="text-gray-300 hover:text-white transition-colors px-3 py-2 rounded-md"
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  {item}
+                </motion.a>
+              )
+            })}
           </nav>
           
           <div className="flex items-center space-x-4">
             <motion.div {...scaleOnHover}>
-              <Button variant="outline" className="hidden md:inline-flex border-purple-500/50 text-purple-400 hover:bg-purple-500/10">
+              <Button variant="outline" className="hidden md:inline-flex border-purple-500/50 text-purple-400 hover:bg-purple-500/10" onClick={() => window.location.href = 'mailto:founders@mysevak.io'}>
                 Book A Demo
               </Button>
             </motion.div>
             <motion.div {...scaleOnHover}>
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Button className="bg-blue-600 hover:bg-blue-700 text-white" onClick={() => window.location.href = 'mailto:founders@mysevak.io'}>
                 Login
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
@@ -142,19 +160,36 @@ const Header = () => {
               transition={{ duration: 0.3 }}
             >
               <nav className="flex flex-col space-y-2">
-                {['Home', 'Features', 'About', 'Contact'].map((item, index) => (
-                  <motion.a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="text-gray-300 hover:text-white transition-colors px-3 py-2 rounded-md"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item}
-                  </motion.a>
-                ))}
+                {["Home", "Features", "About", "Contact"].map((item, index) => {
+                  if (item === "About" || item === "Contact") {
+                    return (
+                      <motion.a
+                        key={item}
+                        href="mailto:founders@mysevak.io"
+                        className="text-gray-300 hover:text-white transition-colors px-3 py-2 rounded-md"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {item}
+                      </motion.a>
+                    )
+                  }
+                  return (
+                    <motion.a
+                      key={item}
+                      href={`#${item.toLowerCase()}`}
+                      className="text-gray-300 hover:text-white transition-colors px-3 py-2 rounded-md"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item}
+                    </motion.a>
+                  )
+                })}
               </nav>
             </motion.div>
           )}
@@ -237,7 +272,7 @@ const HeroSection = () => {
         transition={{ duration: 4, repeat: Infinity, delay: 2 }}
       />
       
-      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
+      <div className="container mx-auto px-6 pt-32 pb-20 sm:pb-12 xs:pb-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
           <motion.div 
@@ -428,13 +463,13 @@ const HeroSection = () => {
         
         {/* Bottom Stats with animation */}
         <motion.div 
-          className="mt-20 text-center"
+          className="mt-10 sm:mt-8 xs:mt-6 text-center"
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.5, duration: 0.8 }}
         >
           <motion.p 
-            className="text-2xl text-gray-300 mb-8"
+            className="text-2xl text-gray-300 mb-6 sm:mb-4 xs:mb-2"
             animate={{ 
               backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
             }}
@@ -878,16 +913,30 @@ const Footer = () => {
             <motion.div key={section.title} variants={fadeInUp}>
               <h4 className="text-white font-semibold mb-4">{section.title}</h4>
               <ul className="space-y-2 text-gray-400">
-                {section.items.map((item, itemIndex) => (
-                  <motion.li 
-                    key={item}
-                    whileHover={{ color: "#ffffff", x: 5 }}
-                    transition={{ duration: 0.2 }}
-                    className="cursor-pointer"
-                  >
-                    {item}
-                  </motion.li>
-                ))}
+                {section.items.map((item, itemIndex) => {
+                  if (item === "About" || item === "Contact") {
+                    return (
+                      <motion.li 
+                        key={item}
+                        whileHover={{ color: "#ffffff", x: 5 }}
+                        transition={{ duration: 0.2 }}
+                        className="cursor-pointer"
+                      >
+                        <a href="mailto:founders@mysevak.io">{item}</a>
+                      </motion.li>
+                    )
+                  }
+                  return (
+                    <motion.li 
+                      key={item}
+                      whileHover={{ color: "#ffffff", x: 5 }}
+                      transition={{ duration: 0.2 }}
+                      className="cursor-pointer"
+                    >
+                      {item}
+                    </motion.li>
+                  )
+                })}
               </ul>
             </motion.div>
           ))}
